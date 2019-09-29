@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+service Naming {
+	rpc Registry(RegistryReq) returns (RegistryRsp) {};
+	rpc HeartBeat(HeartBeatReq) returns (HeartBeatRsp) {};
+	rpc UpdateInfo(SubscribeReq) returns (stream PublishRsp) {};
+}
+
+message ServerInfo {
+	string app = 1;
+	string set = 2;
+	string name = 3;
+	string addr = 4;
+}
+
+message RegistryReq {
+	ServerInfo new_server = 1;
+}
+
+message RegistryRsp {
+	repeated ServerInfo server_list = 1;
+}
+
+message HeartBeatReq {
+	string addr = 1;
+}
+
+message HeartBeatRsp {
+}
+
+message SubscribeReq {
+	string addr = 1;
+}
+
+message PublishRsp {
+	repeated ServerInfo update_server_list = 1;
+}

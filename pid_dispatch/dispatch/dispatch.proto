@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service PidDispatch {
+	rpc GetPid(GetPidReq) returns (GetPidRsp) {};
+}
+
+message GetPidReq {
+	string addr = 1;
+	string app = 2;
+}
+
+message GetPidRsp {
+	int32 pid = 1;
+}
