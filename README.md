@@ -33,7 +33,7 @@ go run go run serve.go -config=./naming.conf
 ```
 启动uid服务：
 ```
-cd $GOPATH/src/github.com/lanyutc/blue/naming/
+cd $GOPATH/src/github.com/lanyutc/blue/pid_dispatch
 go run serve.go -config=./pid_dispatch.conf
 ```
 ### 3.2 CS通信例子  
