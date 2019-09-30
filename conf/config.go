@@ -1,9 +1,9 @@
 package conf
 
 import (
-	"blue/util/kvfile"
 	"errors"
 	"flag"
+	"github.com/lanyutc/blue/util/kvfile"
 	"runtime"
 	"strconv"
 	"strings"

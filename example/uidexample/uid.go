@@ -1,8 +1,8 @@
 package main
 
 import (
-	"blue/uid"
 	"fmt"
+	"github.com/lanyutc/blue/uid"
 )
 
 func main() {

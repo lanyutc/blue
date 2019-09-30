@@ -1,11 +1,11 @@
 package uid
 
 import (
-	"blue/conf"
-	"blue/pid_dispatch/dispatch"
-	"blue/rpc"
 	"context"
 	"errors"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/pid_dispatch/dispatch"
+	"github.com/lanyutc/blue/rpc"
 	"google.golang.org/grpc"
 	"sync"
 	"time"

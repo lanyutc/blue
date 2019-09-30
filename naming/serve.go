@@ -1,13 +1,13 @@
 package main
 
 import (
-	"blue"
-	"blue/conf"
-	"blue/naming/provider"
-	"blue/util/kvfile"
 	"bufio"
 	"context"
 	"errors"
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/naming/provider"
+	"github.com/lanyutc/blue/util/kvfile"
 	"google.golang.org/grpc"
 	"net"
 	"os"

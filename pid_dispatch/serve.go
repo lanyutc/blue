@@ -1,13 +1,13 @@
 package main
 
 import (
-	"blue"
-	"blue/conf"
-	"blue/pid_dispatch/dispatch"
-	"blue/rpc"
-	"blue/util/kvfile"
 	"bufio"
 	"context"
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/pid_dispatch/dispatch"
+	"github.com/lanyutc/blue/rpc"
+	"github.com/lanyutc/blue/util/kvfile"
 	"google.golang.org/grpc"
 	"os"
 	"strconv"

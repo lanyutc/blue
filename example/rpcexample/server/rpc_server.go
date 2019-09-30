@@ -1,11 +1,11 @@
 package main
 
 import (
-	"blue/conf"
-	echo "blue/example/rpcexample/echo"
-	"blue/rpc"
 	"context"
 	"fmt"
+	"github.com/lanyutc/blue/conf"
+	echo "github.com/lanyutc/blue/example/rpcexample/echo"
+	"github.com/lanyutc/blue/rpc"
 	"google.golang.org/grpc"
 )
 

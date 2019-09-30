@@ -1,10 +1,10 @@
 package endpoint
 
 import (
-	"blue"
-	"blue/conf"
-	"blue/naming/provider"
 	"context"
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/naming/provider"
 	"google.golang.org/grpc"
 	"io"
 	"strings"

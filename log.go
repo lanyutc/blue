@@ -1,8 +1,8 @@
 package blue
 
 import (
-	"blue/conf"
-	"blue/util/log"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/util/log"
 	"path/filepath"
 )
 

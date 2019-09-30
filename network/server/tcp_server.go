@@ -1,9 +1,9 @@
 package server
 
 import (
-	"blue/network"
-	"blue/util/workerpool"
 	"context"
+	"github.com/lanyutc/blue/network"
+	"github.com/lanyutc/blue/util/workerpool"
 	"io"
 	"net"
 	"reflect"

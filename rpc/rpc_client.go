@@ -1,9 +1,9 @@
 package rpc
 
 import (
-	"blue/conf"
-	"blue/rpc/endpoint"
 	"errors"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/rpc/endpoint"
 	"google.golang.org/grpc"
 	"sync"
 	"sync/atomic"

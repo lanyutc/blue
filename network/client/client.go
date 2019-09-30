@@ -1,7 +1,7 @@
 package client
 
 import (
-	"blue/network"
+	"github.com/lanyutc/blue/network"
 	"io"
 	"net"
 	"sync"

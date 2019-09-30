@@ -1,10 +1,10 @@
 package main
 
 import (
-	"blue/network"
-	"blue/network/client"
 	"encoding/binary"
 	"fmt"
+	"github.com/lanyutc/blue/network"
+	"github.com/lanyutc/blue/network/client"
 	"sync/atomic"
 	"time"
 )

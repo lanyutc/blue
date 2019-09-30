@@ -1,7 +1,7 @@
 package network
 
 import (
-	"blue"
+	"github.com/lanyutc/blue"
 )
 
 var LOG = blue.GetLogger("net", 1)

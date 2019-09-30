@@ -1,12 +1,12 @@
 package main
 
 import (
-	"blue/conf"
-	"blue/network"
-	"blue/network/server"
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/network"
+	"github.com/lanyutc/blue/network/server"
 	"time"
 )
 
