@@ -29,7 +29,7 @@ sed -i "s/10.105.248.121/${your machine ip}/g" `grep 10.105.248.121 -rl ./*`
 启动naming服务：
 ```
 cd $GOPATH/src/github.com/lanyutc/blue/naming
-go run go run serve.go -config=./naming.conf
+go run serve.go -config=./naming.conf
 ```
 启动uid服务：
 ```
