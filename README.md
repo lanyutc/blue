@@ -1,5 +1,5 @@
 # blue 
-使用Golang实现的服务端框架
+使用Golang实现的服务端框架，内置了名字发现服务，它与grpc配合实现blue的rpc，该rpc提供了基于SET的寻轮、Hash调度机制。为了方便使用还内置了基于twitter-snowflake的uid生成器。
 
 ## 1.安装依赖环境  
 ### 1.1 安装grpc，参考步骤：  
