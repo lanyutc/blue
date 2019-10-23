@@ -68,4 +68,4 @@ go run uid.go -config=./uid.conf
 ## 4.文档  
 Blue简介 - <a href="https://www.lanindex.com/%e5%ad%a6%e4%b9%a0golang%e4%b9%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a1%86%e6%9e%b6%e7%bc%96%e5%86%99-%e5%bc%80%e7%af%87/" target="_blank">点击打开链接</a>  
 Blue的配置与日志 - <a href="https://www.lanindex.com/%e5%ad%a6%e4%b9%a0golang%e4%b9%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a1%86%e6%9e%b6%e7%bc%96%e5%86%99-%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%97%a5%e5%bf%97/" target="_blank">点击打开链接</a>  
-Blue的CS网络通 - [点击打开链接](https://www.lanindex.com/%e5%ad%a6%e4%b9%a0golang%e4%b9%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a1%86%e6%9e%b6%e7%bc%96%e5%86%99-cs%e7%bd%91%e7%bb%9c%e9%80%9a%e4%bf%a1/){:target="_blank"}
+Blue的CS网络通 - <a href="https://www.lanindex.com/%e5%ad%a6%e4%b9%a0golang%e4%b9%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a1%86%e6%9e%b6%e7%bc%96%e5%86%99-cs%e7%bd%91%e7%bb%9c%e9%80%9a%e4%bf%a1/" target="_blank">点击打开链接</a>  
