@@ -1,8 +1,15 @@
 # blue 
-使用Golang实现的服务端框架，内置了名字发现服务，它与grpc配合实现blue的rpc，该rpc提供了基于Set的轮询、Hash调度机制。为了方便使用还内置了基于twitter-snowflake的uid生成器。
+使用Golang实现的服务端框架，内置了名字发现服务，它与grpc配合实现blue的rpc，该rpc提供了基于Set的轮询、Hash调度机制。为了方便使用还内置了基于twitter-snowflake的uid生成器。  
+  
+目前支持go mod，需要go version>=1.11  
+  
+## 1.安装blue
+```
+go get -u github.com/lanyutc/blue  
+```
 
-## 1.安装依赖环境  
-### 1.1 安装grpc，参考步骤：  
+## 2.依赖环境  
+### 2.1 传统安装，参考步骤：  
 ```
 git clone https://github.com/grpc/grpc-go.git $GOPATH/src/google.golang.org/grpc  
 git clone https://github.com/golang/net.git $GOPATH/src/golang.org/x/net  
@@ -14,11 +21,9 @@ cd $GOPATH/src/
 go install google.golang.org/grpc  
 ```
 
-## 2.安装blue
-```
-go get -u github.com/lanyutc/blue  
-```
-
+### 2.2 go mod：
+   
+   
 ## 3.使用例子
 ### 3.1 准备工作
 修改配置文件IP地址：
