@@ -22,7 +22,16 @@ go install google.golang.org/grpc
 ```
 
 ### 2.2 go mod：
-   
+```
+cd $GOPATH/src/github.com/lanyutc/blue
+go mod tidy
+```
+如果连接失败或者超时，你可能需要先：
+```
+export GOPROXY="https://goproxy.cn"
+或者
+export GOPROXY="https://goproxy.io"
+```
    
 ## 3.使用例子
 ### 3.1 准备工作
