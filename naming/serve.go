@@ -118,7 +118,11 @@ func (s *NamingServer) NotifyUpdate() {
 	DLOG.Info("Notify Update")
 	s.svrs.Range(func(k, v interface{}) bool {
 		if svr, ok := v.(*ServerInfo); ok {
-			svr.update <- true
+			select {
+			case svr.update <- true:
+			case <-time.After(time.Second):
+				LOG.Error("Notify Update TimeOut|", svr.name, "|", svr.addr)
+			}
 		}
 		return true
 	})
