@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lanyutc/blue/network"
-	"github.com/lanyutc/blue/network/client"
 	"sync/atomic"
 	"time"
+
+	"github.com/lanyutc/blue/network"
+	"github.com/lanyutc/blue/network/client"
 )
 
 const (
@@ -18,7 +19,7 @@ type EchoClient struct {
 }
 
 func (c *EchoClient) Invoke(pkg []byte) {
-	fmt.Println("recv:", string(pkg))
+	fmt.Println("recv:", len(pkg))
 	atomic.AddInt32(&c.recvCount, 1)
 }
 
@@ -49,21 +50,21 @@ func main() {
 	}
 
 	c := &EchoClient{}
-	client := client.NewClient("10.105.248.121:44477", c, cfg)
+	client := client.NewClient(":44477", c, cfg)
 
 	var cnt int32 = 50000
 	var i int32 = 0
 	for ; i < cnt; i++ {
 		client.Req(func() []byte {
-			payload := []byte("Hello Blue")
+			payload := "Hello Blue"
 			pkg := make([]byte, PacketHeadSize+len(payload))
 			binary.BigEndian.PutUint32(pkg[:PacketHeadSize], uint32(len(pkg)))
-			copy(pkg[PacketHeadSize:], payload)
+			copy(pkg[PacketHeadSize:], []byte(payload))
 			return pkg
 		}())
 	}
 
-	time.Sleep(time.Second * 3)
+	time.Sleep(time.Second * 5)
 	if cnt != c.recvCount {
 		fmt.Println("Bad Test,", cnt, c.recvCount)
 	} else {
