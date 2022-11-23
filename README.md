@@ -7,7 +7,7 @@ git clone github.com/lanyutc/blue
 ```
 
 ## 2.依赖环境  
-### 使用需要go version>=1.11  
+### 使用需要go version>=1.13
 
 如果连接失败或者超时，你可能需要先：
 ```
@@ -18,18 +18,18 @@ export GOPROXY="https://goproxy.io"
    
 ## 3.使用例子
 ### 3.1 准备工作
-启动naming服务：
+启动naming服务，默认端口8527：
 ```
 cd $your_workspace/blue/naming
 go run serve.go -config=./naming.conf
 ```
-启动uid服务：
+启动uid服务，默认端口18527：
 ```
 cd $your_workspace/blue/pid_dispatch
 go run serve.go -config=./pid_dispatch.conf
 ```
 ### 3.2 CS通信例子  
-启动Server：
+启动Server，默认端口44477：
 ```
 cd $your_workspace/blue/example/netexample/server
 go run echo_server.go -config=./echo_server.conf
