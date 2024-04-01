@@ -59,7 +59,7 @@ cd $your_workspace/blue/example/uidexample
 go run uid.go -config=./uid.conf
 ```
 
-## 4.使用例子-使用camke
+## 4.使用例子-使用cmake(VERSION 3.25)
 ### 4.1编译
 ```
 sh build.sh
