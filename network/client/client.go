@@ -1,11 +1,12 @@
 package client
 
 import (
-	"github.com/lanyutc/blue/network"
 	"io"
 	"net"
 	"sync"
 	"time"
+
+	"github.com/lanyutc/blue/network"
 )
 
 type ClientMsgProc interface {
@@ -16,6 +17,8 @@ type ClientMsgProc interface {
 type ClientConf struct {
 	Proto        string
 	JobQueueLen  int
+	WriteBuffer  int
+	ReadBuffer   int
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 }
@@ -65,6 +68,13 @@ func (c *Client) TryConnect() (err error) {
 		if c.conn != nil {
 			if tc, ok := c.conn.(*net.TCPConn); ok {
 				tc.SetKeepAlive(true)
+				tc.SetWriteBuffer(c.conf.WriteBuffer)
+				tc.SetReadBuffer(c.conf.ReadBuffer)
+			}
+
+			if tc, ok := c.conn.(*net.UDPConn); ok {
+				tc.SetWriteBuffer(c.conf.WriteBuffer)
+				tc.SetReadBuffer(c.conf.ReadBuffer)
 			}
 		}
 

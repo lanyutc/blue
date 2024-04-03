@@ -3,12 +3,13 @@ package conf
 import (
 	"errors"
 	"flag"
-	"github.com/lanyutc/blue/util/kvfile"
 	"runtime"
 	"strconv"
 	"strings"
 	"sync"
 	"unicode"
+
+	"github.com/lanyutc/blue/util/kvfile"
 )
 
 var (
@@ -32,12 +33,12 @@ type Config struct {
 	WorkerNum    uint32
 	JobQueueLen  uint32
 
-	CSAddr             string
-	CSProto            string
-	TcpReadBufferSize  uint32
-	TcpWriteBufferSize uint32
-	ProcTimeout        uint32
-	IdleTimeout        uint32
+	CSAddr          string
+	CSProto         string
+	ReadBufferSize  uint32
+	WriteBufferSize uint32
+	ProcTimeout     uint32
+	IdleTimeout     uint32
 
 	LogLevel string
 	LogPath  string
@@ -161,10 +162,10 @@ func initConf() {
 	//CS通信配置
 	cfg.CSAddr = setConfig(kvs, "CSAddr", "").(string)
 	cfg.CSProto = setConfig(kvs, "CSProto", "tcp").(string)
-	cfg.TcpReadBufferSize = setConfig(kvs, "TcpReadBufferSize", uint32(0)).(uint32)
-	cfg.TcpReadBufferSize = cfg.TcpReadBufferSize * uint32(K)
-	cfg.TcpWriteBufferSize = setConfig(kvs, "TcpWriteBufferSize", uint32(0)).(uint32)
-	cfg.TcpWriteBufferSize = cfg.TcpWriteBufferSize * uint32(K)
+	cfg.ReadBufferSize = setConfig(kvs, "ReadBufferSize", uint32(0)).(uint32)
+	cfg.ReadBufferSize = cfg.ReadBufferSize * uint32(K)
+	cfg.WriteBufferSize = setConfig(kvs, "WriteBufferSize", uint32(0)).(uint32)
+	cfg.WriteBufferSize = cfg.WriteBufferSize * uint32(K)
 	cfg.ProcTimeout = setConfig(kvs, "ProcTimeout", uint32(5000)).(uint32)
 	cfg.IdleTimeout = setConfig(kvs, "IdleTimeout", uint32(30000)).(uint32)
 

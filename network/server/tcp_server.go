@@ -2,12 +2,13 @@ package server
 
 import (
 	"context"
-	"github.com/lanyutc/blue/network"
-	"github.com/lanyutc/blue/util/workerpool"
 	"io"
 	"net"
 	"reflect"
 	"time"
+
+	"github.com/lanyutc/blue/network"
+	"github.com/lanyutc/blue/util/workerpool"
 )
 
 type TcpServerHandler struct {
@@ -16,7 +17,7 @@ type TcpServerHandler struct {
 	wPool  *workerpool.Pool
 }
 
-func (tsh *TcpServerHandler) Listen() (err error) {
+func (tsh *TcpServerHandler) Listen() error {
 	addr, err := net.ResolveTCPAddr("tcp4", tsh.svr.conf.Addr)
 	if err != nil {
 		return err
@@ -45,11 +46,11 @@ func (tsh *TcpServerHandler) Run() error {
 
 		go func(conn *net.TCPConn) {
 			network.LOG.Info("TCP accept:", conn.RemoteAddr())
-			if tsh.svr.conf.TcpReadBuffer > 0 {
-				conn.SetReadBuffer(tsh.svr.conf.TcpReadBuffer)
+			if tsh.svr.conf.ReadBuffer > 0 {
+				conn.SetReadBuffer(tsh.svr.conf.ReadBuffer)
 			}
-			if tsh.svr.conf.TcpWriteBuffer > 0 {
-				conn.SetWriteBuffer(tsh.svr.conf.TcpWriteBuffer)
+			if tsh.svr.conf.WriteBuffer > 0 {
+				conn.SetWriteBuffer(tsh.svr.conf.WriteBuffer)
 			}
 			conn.SetNoDelay(true)
 			tsh.Recv(conn)
@@ -137,13 +138,13 @@ func (tsh *TcpServerHandler) HandlePkg(conn *net.TCPConn, pkg []byte) {
 	return
 }
 
-//通过反射获得连接的fd
-func GetSysfd(conn *net.TCPConn) int {
+// 通过反射获得连接的fd
+func GetSysfd(conn *net.TCPConn) uint32 {
 	if conn == nil {
 		return 0
 	}
 	fdValue := reflect.Indirect(reflect.Indirect(reflect.ValueOf(conn)).FieldByName("fd"))
 	pfdValue := reflect.Indirect(fdValue.FieldByName("pfd"))
 	fd := pfdValue.FieldByName("Sysfd").Int()
-	return int(fd)
+	return uint32(fd)
 }

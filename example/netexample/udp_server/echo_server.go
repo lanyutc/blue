@@ -23,7 +23,7 @@ func (s *EchoServer) Invoke(ctx context.Context, req []byte) (rsp []byte) {
 	rsp = make([]byte, len(req))
 	copy(rsp, req)
 	s.recvCount++
-	fmt.Println(s.recvCount)
+	//fmt.Println("Invoke:", s.recvCount)
 	return
 }
 
@@ -34,7 +34,7 @@ func (s *EchoServer) ParsePackage(buff []byte) (int, int) {
 
 	pkgLen := binary.BigEndian.Uint32(buff[:4])
 
-	if pkgLen > 104857600 || len(buff) > 104857600 { // 100MB
+	if pkgLen > 65536 || len(buff) > 65536 {
 		return 0, network.PACKAGE_ERROR
 	}
 
@@ -51,7 +51,7 @@ func (s *EchoServer) InvokeTimeout(pkg []byte) []byte {
 
 func main() {
 	conf := &server.ServerConf{
-		Proto:       "tcp",
+		Proto:       conf.GetConfig().CSProto,
 		Addr:        conf.GetConfig().CSAddr,
 		ProcTimeout: time.Duration(conf.GetConfig().ProcTimeout) * time.Millisecond,
 		IdleTimeout: time.Duration(conf.GetConfig().IdleTimeout) * time.Millisecond,

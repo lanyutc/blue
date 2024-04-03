@@ -19,7 +19,6 @@ type EchoClient struct {
 }
 
 func (c *EchoClient) Invoke(pkg []byte) {
-	//fmt.Println("recv:", len(pkg))
 	atomic.AddInt32(&c.recvCount, 1)
 }
 
@@ -30,7 +29,7 @@ func (c *EchoClient) ParsePackage(buff []byte) (int, int) {
 
 	pkgLen := binary.BigEndian.Uint32(buff[:4])
 
-	if pkgLen > 104857600 || len(buff) > 104857600 { // 100MB
+	if pkgLen > 65536 || len(buff) > 65536 {
 		fmt.Println(pkgLen, "|", len(buff))
 		return 0, network.PACKAGE_ERROR
 	}
@@ -43,10 +42,10 @@ func (c *EchoClient) ParsePackage(buff []byte) (int, int) {
 
 func main() {
 	cfg := &client.ClientConf{
-		Proto:        "tcp",
+		Proto:        "udp",
 		JobQueueLen:  10000,
-		WriteBuffer:  40960,
-		ReadBuffer:   40960,
+		WriteBuffer:  409600,
+		ReadBuffer:   409600,
 		ReadTimeout:  time.Millisecond * 500,
 		WriteTimeout: time.Millisecond * 500,
 	}
@@ -54,7 +53,7 @@ func main() {
 	c := &EchoClient{}
 	client := client.NewClient(":44477", c, cfg)
 
-	var cnt int32 = 50000
+	var cnt int32 = 10000
 	var i int32 = 0
 	for ; i < cnt; i++ {
 		client.Req(func() []byte {

@@ -48,4 +48,16 @@ mkdir -p $uid_example_bin_path
 mv -f ./example/uidexample/uid_example $uid_example_bin_path
 cp -f $rootdir/example/uidexample/uid.conf $rootdir/example/uidexample/start.sh $rootdir/example/uidexample/stop.sh $uid_example_bin_path
 
+make udp_server_example
+udp_server_example_bin_path=$rootdir/example/netexample/udp_server/bin
+mkdir -p $udp_server_example_bin_path
+mv -f ./example/netexample/udp_server/udp_server_example $udp_server_example_bin_path
+cp -f $rootdir/example/netexample/udp_server/echo_server.conf $rootdir/example/netexample/udp_server/start.sh $rootdir/example/netexample/udp_server/stop.sh $udp_server_example_bin_path
+
+make udp_client_example
+udp_client_example_bin_path=$rootdir/example/netexample/udp_client/bin
+mkdir -p $udp_client_example_bin_path
+mv -f ./example/netexample/udp_client/udp_client_example $udp_client_example_bin_path
+cp -f $rootdir/example/netexample/udp_client/echo_client.conf $rootdir/example/netexample/udp_client/start.sh $rootdir/example/netexample/udp_client/stop.sh $udp_client_example_bin_path
+
 rm -rf $rootdir/build

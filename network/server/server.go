@@ -21,14 +21,14 @@ type ServerHandler interface {
 }
 
 type ServerConf struct {
-	Proto          string
-	Addr           string
-	ProcTimeout    time.Duration
-	IdleTimeout    time.Duration
-	TcpReadBuffer  int
-	TcpWriteBuffer int
-	WorkerNum      int
-	JobQueueLen    int
+	Proto       string
+	Addr        string
+	ProcTimeout time.Duration
+	IdleTimeout time.Duration
+	ReadBuffer  int
+	WriteBuffer int
+	WorkerNum   uint32
+	JobQueueLen uint32
 }
 
 type Server struct {
@@ -52,7 +52,7 @@ func NewServer(proc ServerMsgProc, conf *ServerConf) *Server {
 	if conf.Proto == "tcp" {
 		svr.handler = &TcpServerHandler{svr: svr}
 	} else if conf.Proto == "udp" {
-		//TODO
+		svr.handler = &UdpServerHandler{svr: svr}
 	} else {
 		panic("Unsupport Proto: " + svr.conf.Proto)
 	}
