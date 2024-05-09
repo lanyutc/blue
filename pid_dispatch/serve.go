@@ -3,18 +3,19 @@ package main
 import (
 	"bufio"
 	"context"
-	"github.com/lanyutc/blue"
-	"github.com/lanyutc/blue/conf"
-	"github.com/lanyutc/blue/pid_dispatch/dispatch"
-	"github.com/lanyutc/blue/rpc"
-	"github.com/lanyutc/blue/util/kvfile"
-	"google.golang.org/grpc"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/pid_dispatch/dispatch"
+	"github.com/lanyutc/blue/rpc"
+	"github.com/lanyutc/blue/util/kvfile"
+	"google.golang.org/grpc"
 )
 
 var (
@@ -104,8 +105,8 @@ func (s *PidDispatchServer) LoadCache() {
 
 func (s *PidDispatchServer) KeepSaveCache() {
 	ticker := time.NewTicker(time.Second * 30)
-	go func() {
-		for range ticker.C {
+	for range ticker.C {
+		go func() {
 			f, err := os.OpenFile(cachefile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 			if err != nil {
 				LOG.Error("SaveCache OpenFile Failed:" + err.Error())
@@ -121,8 +122,8 @@ func (s *PidDispatchServer) KeepSaveCache() {
 				return true
 			})
 			writer.Flush()
-		}
-	}()
+		}()
+	}
 }
 
 func main() {
