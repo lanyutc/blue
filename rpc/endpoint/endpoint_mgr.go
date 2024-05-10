@@ -2,14 +2,16 @@ package endpoint
 
 import (
 	"context"
-	"github.com/lanyutc/blue"
-	"github.com/lanyutc/blue/conf"
-	"github.com/lanyutc/blue/naming/provider"
-	"google.golang.org/grpc"
 	"io"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/naming/provider"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 )
 
 var (
@@ -47,7 +49,11 @@ func (em *EndpointMgr) UpdateEndpoint(list []*provider.ServerInfo) {
 
 func (em *EndpointMgr) RegistryNaming() error {
 	cfg := conf.GetConfig()
-	conn, err := grpc.Dial(cfg.NamingServer, grpc.WithInsecure())
+	conn, err := grpc.Dial(cfg.NamingServer, grpc.WithInsecure(),
+		grpc.WithKeepaliveParams(keepalive.ClientParameters{
+			Time:                30 * time.Second,
+			Timeout:             5 * time.Second,
+			PermitWithoutStream: true}))
 	if err != nil {
 		panic(err)
 	}

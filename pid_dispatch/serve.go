@@ -130,7 +130,7 @@ func main() {
 	cfg := conf.GetConfig()
 	serve := &PidDispatchServer{}
 	serve.LoadCache()
-	serve.KeepSaveCache()
+	go serve.KeepSaveCache()
 
 	err := rpc.StartRpcServer(cfg.RPCAddr, func(s *grpc.Server) {
 		dispatch.RegisterPidDispatchServer(s, serve)
@@ -140,6 +140,5 @@ func main() {
 	}
 
 	rpc.ClientRpcMgrInstance()
-
 	select {}
 }

@@ -4,16 +4,18 @@ import (
 	"bufio"
 	"context"
 	"errors"
-	"github.com/lanyutc/blue"
-	"github.com/lanyutc/blue/conf"
-	"github.com/lanyutc/blue/naming/provider"
-	"github.com/lanyutc/blue/util/kvfile"
-	"google.golang.org/grpc"
 	"net"
 	"os"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/lanyutc/blue"
+	"github.com/lanyutc/blue/conf"
+	"github.com/lanyutc/blue/naming/provider"
+	"github.com/lanyutc/blue/util/kvfile"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 )
 
 var (
@@ -169,8 +171,8 @@ func (s *NamingServer) LoadCache() {
 
 func (s *NamingServer) KeepSaveCache() {
 	ticker := time.NewTicker(time.Second * 30)
-	go func() {
-		for range ticker.C {
+	for range ticker.C {
+		go func() {
 			f, err := os.OpenFile(cachefile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 			if err != nil {
 				LOG.Error("SaveCache OpenFile Failed:" + err.Error())
@@ -184,9 +186,10 @@ func (s *NamingServer) KeepSaveCache() {
 				if svr, ok := v.(*ServerInfo); ok {
 					//这里检查一下心跳超时的状态
 					if svr.lastHeartBeat.Add(timeout * 2).Before(time.Now()) {
-						s.svrs.Delete(k)
-						DLOG.Info("Heart Beat TimeOut X2, Try Del:", svr.addr)
-						return true
+						DLOG.Info("Heart Beat TimeOut X2:", svr.addr)
+						//FIXME 目前这里不做删除机制
+						//s.svrs.Delete(k)
+						//return true
 					} else if svr.lastHeartBeat.Add(timeout).Before(time.Now()) {
 						if svr.isActive {
 							s.NotifyUpdate()
@@ -199,8 +202,8 @@ func (s *NamingServer) KeepSaveCache() {
 				return true
 			})
 			writer.Flush()
-		}
-	}()
+		}()
+	}
 }
 
 func (s NamingServer) ServerList() (list []*provider.ServerInfo) {
@@ -224,14 +227,17 @@ func main() {
 	cfg := conf.GetConfig()
 	serve := &NamingServer{}
 	serve.LoadCache()
-	serve.KeepSaveCache()
+	go serve.KeepSaveCache()
 
 	lis, errrpc := net.Listen("tcp", cfg.NamingServer)
 	if errrpc != nil {
 		panic("failed to listen:" + cfg.NamingServer)
 	}
 
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(grpc.KeepaliveEnforcementPolicy(keepalive.EnforcementPolicy{
+		MinTime:             5 * time.Second,
+		PermitWithoutStream: true,
+	}))
 	provider.RegisterNamingServer(grpcServer, serve)
 	grpcServer.Serve(lis)
 }
